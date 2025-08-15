@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta language="en">
+	<title>GreySec</title>
+	
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", monospace;}
+
+body {
+	background-color: #262626;
+	}
+
+h1{
+  text-align: center;
+	}
+
+h1 {
+	color: lightgrey;
+	}
+	
+p {
+	color: lightgrey;
+	margin: 100px;
+	}
+	
+button {
+	background-color: black;
+	color: white;
+	border-radius: 5px;
+	border-color: white;
+	margin: 20px;
+	font-size: 20px;
+	font-family: "Lucida Console", monospace;
+	}
+
+a {
+	text-decoration: none;
+	}
+
+.logo {
+	display: block;
+	margin: auto;
+	}
+	
+.menu {
+	text-align: center;
+	}
+
+.snip{
+	padding: inherit;
+	margin:auto;
+	display: block;
+	}
+	
+ <!-- This shit needs another look. Seriously. This is trash -->
+
+</style>
+
+</head>
+	
+<body>
+
+<div class="menu">
+	<a href="index.html">
+		<button type="button">HOME</button>
+	</a>
+	<a href="roster.html">
+		<button type="button">ROSTER</button>
+	</a>
+	<a href="events.html">
+		<button type="button">EVENTS</button>
+	</a>
+	<a href="writeups.html">
+		<button type="button">WRITEUPS</button>
+	</a>
+</div>
+
+		<img class="logo" src="images/logo.jpeg">
+		<h1><strong>whyctf2025: RansomeWare</strong></h1>
+
+<div>
+	<p>Welcome to my first writeup! This will be for an easy forensics challenge I solved during whyctf2025.</p>
+
+	<p>After downloading the challenge and uncompressing I was left with a .pcap file. Time to spin up wirehshark.</p>
+	
+	<img src="images/ransomewarewireshark.png" class="snip">
+	<p>The challenge hint gave the goal of recovering and decrypting an important file. After sorting the packets by size I noticed two packets mentioned "important_file.txt.encrypted" and "encryptur.py". I followed their TCP streams and was able to assemble these files from the packets.</p>
+	
+	<img src="images/important.png" class="snip">
+
+	<p>So we have the file, but it's encrypted and doesn't make much sense. I did some frequency analysis online but wasn't able to get any working matches. However, we <strong>also</strong> have what was used to encrypt the file. Let's crack it open and see if it's going to be of any use to us.</p>
+
+	<img src="images/encryptur.png" class="snip">
+
+	<p>Of course it can! ... Alright I'm gonna keep it a hunnid with you big dawg, I'm not great at reading code like this yet, much less, using it to write a decryption for this. I fed it to chat GPT and it spat out this "decryptur.py" that I used with shame.</p>
+
+	<img src="images/decryptur.png" class="snip">
+
+	<p>After running it we got this decrypted text, containing the flag :)</p>
+
+	<img src="images/flag.png" class="snip">
+	<p>Lessons learned: Encrypt your traffic. And learn more Python.</p>
+</div>
+
+
+</body>
+</html>
